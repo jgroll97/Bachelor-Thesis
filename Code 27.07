@@ -1,0 +1,381 @@
+import os
+import bpy
+from random import randint
+import numpy as np
+import time
+
+start = time.time()
+
+#Vorherige Einträge löschen
+
+bpy.ops.object.select_all(action="SELECT")
+bpy.ops.object.delete(use_global=False)
+
+#Import des Obejektes
+
+path_to_obj_dir = os.path.join('C:\\', 'C:/Users/Groll/Bachelor Thesis/Malm')
+
+
+file_list = sorted(os.listdir(path_to_obj_dir))
+
+
+obj_list = [item for item in file_list if item.endswith('.obj')]
+
+
+for item in obj_list:
+    path_to_file = os.path.join(path_to_obj_dir, item)
+    bpy.ops.import_scene.obj(filepath = path_to_file, split_mode = "OFF")
+    
+Objekt = "/VIKA/"
+
+#Voreinstellungen
+
+OB = bpy.context.selected_objects[0]
+OB.select_set(state=True)
+bpy.context.view_layer.objects.active = OB
+
+if bpy.context.object.dimensions[0] > bpy.context.object.dimensions[1] and bpy.context.object.dimensions[0] > bpy.context.object.dimensions[2]:
+    bpy.context.object.dimensions[0] = 1
+    bpy.context.object.scale[1]= bpy.context.object.scale[0]
+    bpy.context.object.scale[2]= bpy.context.object.scale[0]
+    
+if bpy.context.object.dimensions[1] > bpy.context.object.dimensions[0] and bpy.context.object.dimensions[1] > bpy.context.object.dimensions[2]:
+    bpy.context.object.dimensions[1] = 1
+    bpy.context.object.scale[0]= bpy.context.object.scale[1]
+    bpy.context.object.scale[2]= bpy.context.object.scale[1]
+    
+if bpy.context.object.dimensions[2] > bpy.context.object.dimensions[0] and bpy.context.object.dimensions[2] > bpy.context.object.dimensions[1]:
+    bpy.context.object.dimensions[1] = 1
+    bpy.context.object.scale[0]= bpy.context.object.scale[2]
+    bpy.context.object.scale[1]= bpy.context.object.scale[2]
+
+
+
+#SAVING POINT
+
+SAVE = "C:/Users/Groll/Documents/Programm06 Bilder/"+ Objekt+"Bild"
+
+#Mittelpunkt
+
+
+bpy.ops.object.origin_set(type='GEOMETRY_ORIGIN', center='MEDIAN')
+bpy.ops.object.empty_add(type='PLAIN_AXES', align='WORLD', location=(0, 0, 0))
+
+
+
+#Rundere Übergänge
+
+bpy.ops.object.shade_smooth()
+
+
+
+#Schwarzer Hintergrund
+
+bpy.data.worlds["World"].node_tree.nodes["Background"].inputs[0].default_value = (0.0100219, 0.0100219, 0.0100219, 1)
+
+#Licht1
+
+bpy.ops.object.light_add(type='AREA', align='WORLD', location=(3, 1.9703, 50.2477))
+bpy.ops.object.select_by_type(type='LIGHT')
+bpy.context.object.data.size = 89
+bpy.context.object.data.energy = 10000
+
+#Licht2
+
+bpy.ops.object.light_add(type='AREA', align='WORLD', location=(2, -55, 18))
+bpy.ops.object.select_by_type(type='LIGHT')
+bpy.context.object.rotation_euler[0] = 1.5708
+bpy.context.object.data.size = 89
+bpy.context.object.data.energy = 10000
+
+#Licht3
+
+bpy.ops.object.light_add(type='AREA', align='WORLD', location=(2, 55, 18))
+bpy.ops.object.select_by_type(type='LIGHT')
+bpy.context.object.rotation_euler[0] = -1.5708
+bpy.context.object.data.size = 89
+bpy.context.object.data.energy = 10000
+
+#Licht4
+
+bpy.ops.object.light_add(type='AREA', align='WORLD', location=(-55, 4, 30))
+bpy.ops.object.select_by_type(type='LIGHT')
+bpy.context.object.rotation_euler[0] = -1.5708
+bpy.context.object.rotation_euler[1] = 1.5708
+bpy.context.object.rotation_euler[2] = 1.5708
+bpy.context.object.data.size = 89
+bpy.context.object.data.energy = 10000
+
+#Licht5
+
+bpy.ops.object.light_add(type='AREA', align='WORLD', location=(55, 4, 30))
+bpy.ops.object.select_by_type(type='LIGHT')
+bpy.context.object.rotation_euler[0] = 1.5708
+bpy.context.object.rotation_euler[1] = 1.5708
+bpy.context.object.rotation_euler[2] = 1.5708
+bpy.context.object.data.size = 89
+bpy.context.object.data.energy = 10000
+
+#Licht6
+
+bpy.ops.object.light_add(type='AREA', align='WORLD', location=(3, 1.9703, -50.2477))
+bpy.ops.object.select_by_type(type='LIGHT')
+bpy.context.object.rotation_euler[0] = 3.14159
+bpy.context.object.data.size = 89
+bpy.context.object.data.energy = 10000
+
+
+#RENDERING THE PICTURES 
+
+#ROtation around Y-Achsis
+
+X=4
+Y=0
+Z=0
+G=1
+
+while X>=0:
+    bpy.context.scene.render.filepath = SAVE+str(G)
+    bpy.ops.object.camera_add(enter_editmode=False, align='VIEW', location=(X, Y, Z), rotation=(1,1,1))
+    bpy.ops.object.constraint_add(type='TRACK_TO')
+    bpy.context.object.constraints["Track To"].target = bpy.data.objects["Empty"]
+    bpy.context.object.constraints["Track To"].track_axis = 'TRACK_NEGATIVE_Z'
+    bpy.context.object.constraints["Track To"].up_axis = 'UP_Y'
+    
+    bpy.context.object.name = "Camera."+str(G)
+    bpy.context.scene.camera = bpy.data.objects["Camera."+str(G)]
+    
+    bpy.ops.render.render(write_still=True )
+    X= X-0.2
+    Z= Z+0.4
+    G= G+1
+    
+while Z >= 0:
+    bpy.context.scene.render.filepath = SAVE+str(G)
+    bpy.ops.object.camera_add(enter_editmode=False, align='VIEW', location=(X, Y, Z), rotation=(1,1,1))
+    bpy.ops.object.constraint_add(type='TRACK_TO')
+    bpy.context.object.constraints["Track To"].target = bpy.data.objects["Empty"]
+    bpy.context.object.constraints["Track To"].track_axis = 'TRACK_NEGATIVE_Z'
+    bpy.context.object.constraints["Track To"].up_axis = 'UP_Y'
+    
+    bpy.context.object.name = "Camera."+str(G)
+    bpy.context.scene.camera = bpy.data.objects["Camera."+str(G)]
+    
+    bpy.ops.render.render(write_still=True )
+    X= X-0.2
+    Z= Z-0.4
+    G= G+1  
+    
+while Z >= -6:
+    bpy.context.scene.render.filepath = SAVE+str(G)
+    bpy.ops.object.camera_add(enter_editmode=False, align='VIEW', location=(X, Y, Z), rotation=(1,1,1))
+    bpy.ops.object.constraint_add(type='TRACK_TO')
+    bpy.context.object.constraints["Track To"].target = bpy.data.objects["Empty"]
+    bpy.context.object.constraints["Track To"].track_axis = 'TRACK_NEGATIVE_Z'
+    bpy.context.object.constraints["Track To"].up_axis = 'UP_Y'
+    
+    bpy.context.object.name = "Camera."+str(G)
+    bpy.context.scene.camera = bpy.data.objects["Camera."+str(G)]
+    
+    bpy.ops.render.render(write_still=True )
+    X= X+0.2
+    Z= Z-0.4
+    G= G+1
+
+
+while Z <= 0:
+    bpy.context.scene.render.filepath = SAVE+str(G)
+    bpy.ops.object.camera_add(enter_editmode=False, align='VIEW', location=(X, Y, Z), rotation=(1,1,1))
+    bpy.ops.object.constraint_add(type='TRACK_TO')
+    bpy.context.object.constraints["Track To"].target = bpy.data.objects["Empty"]
+    bpy.context.object.constraints["Track To"].track_axis = 'TRACK_NEGATIVE_Z'
+    bpy.context.object.constraints["Track To"].up_axis = 'UP_Y'
+    
+    bpy.context.object.name = "Camera."+str(G)
+    bpy.context.scene.camera = bpy.data.objects["Camera."+str(G)]
+    
+    bpy.ops.render.render(write_still=True )
+    X= X+0.2
+    Z= Z+0.4
+    G= G+1   
+    
+#Rotation around X-Achsis
+
+X=0
+Y=4
+Z=0
+
+while Y >= 0:
+    bpy.context.scene.render.filepath = SAVE+str(G)
+    bpy.ops.object.camera_add(enter_editmode=False, align='VIEW', location=(X, Y, Z), rotation=(1,1,1))
+    bpy.ops.object.constraint_add(type='TRACK_TO')
+    bpy.context.object.constraints["Track To"].target = bpy.data.objects["Empty"]
+    bpy.context.object.constraints["Track To"].track_axis = 'TRACK_NEGATIVE_Z'
+    bpy.context.object.constraints["Track To"].up_axis = 'UP_Y'
+    
+    bpy.context.object.name = "Camera."+str(G)
+    bpy.context.scene.camera = bpy.data.objects["Camera."+str(G)]
+    
+    bpy.ops.render.render(write_still=True )
+    Y= Y-0.2
+    Z= Z+0.4
+    G= G+1
+    
+while Z >= 0:
+    bpy.context.scene.render.filepath = SAVE+str(G)
+    bpy.ops.object.camera_add(enter_editmode=False, align='VIEW', location=(X, Y, Z), rotation=(1,1,1))
+    bpy.ops.object.constraint_add(type='TRACK_TO')
+    bpy.context.object.constraints["Track To"].target = bpy.data.objects["Empty"]
+    bpy.context.object.constraints["Track To"].track_axis = 'TRACK_NEGATIVE_Z'
+    bpy.context.object.constraints["Track To"].up_axis = 'UP_Y'
+    
+    bpy.context.object.name = "Camera."+str(G)
+    bpy.context.scene.camera = bpy.data.objects["Camera."+str(G)]
+    
+    bpy.ops.render.render(write_still=True )
+    Y= Y-0.2
+    Z= Z-0.4
+    G= G+1    
+    
+while Z >= -6:
+    bpy.context.scene.render.filepath = SAVE+str(G)
+    bpy.ops.object.camera_add(enter_editmode=False, align='VIEW', location=(X, Y, Z), rotation=(1,1,1))
+    bpy.ops.object.constraint_add(type='TRACK_TO')
+    bpy.context.object.constraints["Track To"].target = bpy.data.objects["Empty"]
+    bpy.context.object.constraints["Track To"].track_axis = 'TRACK_NEGATIVE_Z'
+    bpy.context.object.constraints["Track To"].up_axis = 'UP_Y'
+    
+    bpy.context.object.name = "Camera."+str(G)
+    bpy.context.scene.camera = bpy.data.objects["Camera."+str(G)]
+    
+    bpy.ops.render.render(write_still=True )
+    Y= Y+0.2
+    Z= Z-0.4
+    G= G+1 
+    
+while Y <= 3:
+    bpy.context.scene.render.filepath = SAVE+str(G)
+    bpy.ops.object.camera_add(enter_editmode=False, align='VIEW', location=(X, Y, Z), rotation=(1,1,1))
+    bpy.ops.object.constraint_add(type='TRACK_TO')
+    bpy.context.object.constraints["Track To"].target = bpy.data.objects["Empty"]
+    bpy.context.object.constraints["Track To"].track_axis = 'TRACK_NEGATIVE_Z'
+    bpy.context.object.constraints["Track To"].up_axis = 'UP_Y'
+    
+    bpy.context.object.name = "Camera."+str(G)
+    bpy.context.scene.camera = bpy.data.objects["Camera."+str(G)]
+    
+    bpy.ops.render.render(write_still=True )
+    Y= Y+0.2
+    Z= Z+0.4
+    G= G+1 
+    
+    
+#Rendering over the edges
+
+X=3
+Y=2.5
+Z=0
+
+
+while X>=0:
+    bpy.context.scene.render.filepath = SAVE+str(G)
+    bpy.ops.object.camera_add(enter_editmode=False, align='VIEW', location=(X, Y, Z), rotation=(1,1,1))
+    bpy.ops.object.constraint_add(type='TRACK_TO')
+    bpy.context.object.constraints["Track To"].target = bpy.data.objects["Empty"]
+    bpy.context.object.constraints["Track To"].track_axis = 'TRACK_NEGATIVE_Z'
+    bpy.context.object.constraints["Track To"].up_axis = 'UP_Y'
+    
+    bpy.context.object.name = "Camera."+str(G)
+    bpy.context.scene.camera = bpy.data.objects["Camera."+str(G)]
+    
+    bpy.ops.render.render(write_still=True )
+    X= X-0.2
+    Z= Z+0.4
+    G= G+1
+    
+while Z >= 0:
+    bpy.context.scene.render.filepath = SAVE+str(G)
+    bpy.ops.object.camera_add(enter_editmode=False, align='VIEW', location=(X, Y, Z), rotation=(1,1,1))
+    bpy.ops.object.constraint_add(type='TRACK_TO')
+    bpy.context.object.constraints["Track To"].target = bpy.data.objects["Empty"]
+    bpy.context.object.constraints["Track To"].track_axis = 'TRACK_NEGATIVE_Z'
+    bpy.context.object.constraints["Track To"].up_axis = 'UP_Y'
+    
+    bpy.context.object.name = "Camera."+str(G)
+    bpy.context.scene.camera = bpy.data.objects["Camera."+str(G)]
+    
+    bpy.ops.render.render(write_still=True )
+    X= X-0.2
+    Z= Z-0.4
+    G= G+1
+      
+while Z >= -6:
+    bpy.context.scene.render.filepath = SAVE+str(G)
+    bpy.ops.object.camera_add(enter_editmode=False, align='VIEW', location=(X, Y, Z), rotation=(1,1,1))
+    bpy.ops.object.constraint_add(type='TRACK_TO')
+    bpy.context.object.constraints["Track To"].target = bpy.data.objects["Empty"]
+    bpy.context.object.constraints["Track To"].track_axis = 'TRACK_NEGATIVE_Z'
+    bpy.context.object.constraints["Track To"].up_axis = 'UP_Y'
+    
+    bpy.context.object.name = "Camera."+str(G)
+    bpy.context.scene.camera = bpy.data.objects["Camera."+str(G)]
+    
+    bpy.ops.render.render(write_still=True )
+    X= X+0.2
+    Z= Z-0.4
+    G= G+1
+    
+while Z <= 0:
+    bpy.context.scene.render.filepath = SAVE+str(G)
+    bpy.ops.object.camera_add(enter_editmode=False, align='VIEW', location=(X, Y, Z), rotation=(1,1,1))
+    bpy.ops.object.constraint_add(type='TRACK_TO')
+    bpy.context.object.constraints["Track To"].target = bpy.data.objects["Empty"]
+    bpy.context.object.constraints["Track To"].track_axis = 'TRACK_NEGATIVE_Z'
+    bpy.context.object.constraints["Track To"].up_axis = 'UP_Y'
+    
+    bpy.context.object.name = "Camera."+str(G)
+    bpy.context.scene.camera = bpy.data.objects["Camera."+str(G)]
+    
+    bpy.ops.render.render(write_still=True )
+    X= X+0.2
+    Z= Z+0.4
+    G= G+1
+    
+X=2.5
+Y=3
+Z=0
+
+while Y >= 0:
+    bpy.context.scene.render.filepath = SAVE+str(G)
+    bpy.ops.object.camera_add(enter_editmode=False, align='VIEW', location=(X, Y, Z), rotation=(1,1,1))
+    bpy.ops.object.constraint_add(type='TRACK_TO')
+    bpy.context.object.constraints["Track To"].target = bpy.data.objects["Empty"]
+    bpy.context.object.constraints["Track To"].track_axis = 'TRACK_NEGATIVE_Z'
+    bpy.context.object.constraints["Track To"].up_axis = 'UP_Y'
+    
+    bpy.context.object.name = "Camera."+str(G)
+    bpy.context.scene.camera = bpy.data.objects["Camera."+str(G)]
+    
+    bpy.ops.render.render(write_still=True )
+    Y= Y-0.2
+    Z= Z+0.4
+    G= G+1
+    
+while Y >= 0:
+    bpy.context.scene.render.filepath = SAVE+str(G)
+    bpy.ops.object.camera_add(enter_editmode=False, align='VIEW', location=(X, Y, Z), rotation=(1,1,1))
+    bpy.ops.object.constraint_add(type='TRACK_TO')
+    bpy.context.object.constraints["Track To"].target = bpy.data.objects["Empty"]
+    bpy.context.object.constraints["Track To"].track_axis = 'TRACK_NEGATIVE_Z'
+    bpy.context.object.constraints["Track To"].up_axis = 'UP_Y'
+    
+    bpy.context.object.name = "Camera."+str(G)
+    bpy.context.scene.camera = bpy.data.objects["Camera."+str(G)]
+    
+    bpy.ops.render.render(write_still=True )
+    Y= Y-0.2
+    Z= Z+0.4
+    G= G+1
+   
+end= time.time()
+Zeit = print(end-start)
