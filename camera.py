@@ -196,16 +196,12 @@ for alpha in np.linspace(0, 2 * math.pi, ROTATION_STEPS):
             model.select_set(state=True)
             bpy.context.view_layer.objects.active = model
             bpy.ops.render.render(write_still=True)
-
-
-            print(Boundingbox.camera_view_bounds_2d(bpy.context.scene, bpy.context.scene.camera, bpy.context.object))
+            x, y, w, h = Boundingbox.camera_view_bounds_2d(bpy.context.scene, bpy.context.scene.camera, bpy.context.object)
             dir = os.path.split(bpy.data.filepath)[0]
-            f_path = os.path.join(dir,"./output/images/"+ Object+str(i)+".txt")
-            BB_info = []
-            BB_info.append(str(Boundingbox.camera_view_bounds_2d(bpy.context.scene, bpy.context.scene.camera, bpy.context.object)))
+            f_path = os.path.join(OUTPUT_BOUNDINGBOX_DIR, Object+str(i)+".txt")
 
             with open(f_path, "w") as f:
-                f.write("\n".join(BB_info))
+                f.write("%d, %d, %d, %d" % (x, y, w, h))
             i += 1
 
 
