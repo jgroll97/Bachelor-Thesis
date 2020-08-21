@@ -32,7 +32,7 @@ def setup_light():
     BRIGHTNESS = 1000
     bpy.context.object.data.energy = BRIGHTNESS
 
-    bpy.ops.object.light_add(type='AREA', align='WORLD', location=(2, -55, 18))
+    bpy.ops.object.light_add(type='AREA', align='WORLD', location=(2, -20, 18))
     bpy.ops.object.select_by_type(type='LIGHT')
     bpy.context.object.rotation_euler[0] = 1.5708
     bpy.context.object.data.size = SIZE
@@ -40,7 +40,7 @@ def setup_light():
 
     # Licht3
 
-    bpy.ops.object.light_add(type='AREA', align='WORLD', location=(2, 55, 18))
+    bpy.ops.object.light_add(type='AREA', align='WORLD', location=(2, 25, 18))
     bpy.ops.object.select_by_type(type='LIGHT')
     bpy.context.object.rotation_euler[0] = -1.5708
     bpy.context.object.data.size = SIZE
@@ -48,11 +48,29 @@ def setup_light():
 
     # Licht4
 
-    bpy.ops.object.light_add(type='AREA', align='WORLD', location=(-55, 4, 30))
+    bpy.ops.object.light_add(type='AREA', align='WORLD', location=(-25, 4, 15))
     bpy.ops.object.select_by_type(type='LIGHT')
     bpy.context.object.rotation_euler[0] = -1.5708
     bpy.context.object.rotation_euler[1] = 1.5708
     bpy.context.object.rotation_euler[2] = 1.5708
+    bpy.context.object.data.size = SIZE
+    bpy.context.object.data.energy = BRIGHTNESS
+
+    # Licht5
+
+    bpy.ops.object.light_add(type='AREA', align='WORLD', location=(25, 4, 14))
+    bpy.ops.object.select_by_type(type='LIGHT')
+    bpy.context.object.rotation_euler[0] = 1.5708
+    bpy.context.object.rotation_euler[1] = 1.5708
+    bpy.context.object.rotation_euler[2] = 1.5708
+    bpy.context.object.data.size = SIZE
+    bpy.context.object.data.energy = BRIGHTNESS
+
+    # Licht6
+
+    bpy.ops.object.light_add(type='AREA', align='WORLD', location=(3, 2, -25))
+    bpy.ops.object.select_by_type(type='LIGHT')
+    bpy.context.object.rotation_euler[0] = 3.14159
     bpy.context.object.data.size = SIZE
     bpy.context.object.data.energy = BRIGHTNESS
 
