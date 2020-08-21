@@ -33,7 +33,7 @@ def make_merged():
 
     for b, background in enumerate(backgrounds):
         pool.map(make_single_merged, [
-            (background, image, os.path.join(OUTPUT_MERGED_IMG, str(b) + "_" + str(i) + ".png")) for i,
+            (background, image, os.path.join(OUTPUT_MERGED_IMG, "Rotation_Steps=" + str(ROTATION_STEPS)+", " + str(b) + "_" + str(i) + ".png")) for i,
             image in enumerate(images)])
 
 

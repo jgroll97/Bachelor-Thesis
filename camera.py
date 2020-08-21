@@ -13,7 +13,7 @@ import Boundingbox
 print(bpy.app.version_string)
 
 
-# TODO: set these values from program arguments
+
 
 
 def _cleardir(dir):
@@ -131,7 +131,9 @@ def generate_background_images_1():
             b = randint(0, 255)
             pixel = (r, g, b)
             my_pixels[x, y] = pixel
-    my_image.save("./input/backgrounds/NOISE_PATTERN_1.png")
+    image_path = INPUT_BACKGROUNDS_DIR
+    image_path_color = os.path.join(image_path, "NOISE_PATTERN.png" )
+    my_image.save(image_path_color)
 
 def generate_background_images():
     width, height = (1920, 1080)
@@ -149,7 +151,10 @@ def generate_background_images():
             b = r
             pixel = (r, g, b)
             my_pixels[x, y] = pixel
-    my_image2.save("./input/backgrounds/NOISE_PATTERN.png")
+    image_path = INPUT_BACKGROUNDS_DIR
+    image_path_bw = os.path.join(image_path, "NOISE_PATTERN_bw.png")
+    my_image2.save(image_path_bw)
+
 
 
 # Actual program
@@ -192,13 +197,15 @@ for alpha in np.linspace(0, 2 * math.pi, ROTATION_STEPS):
 
             transformed_pos = transformation_mat @ initial_pos
             camera.location = transformed_pos
-            bpy.context.scene.render.filepath = os.path.abspath(os.path.join(OUTPUT_IMAGE_DIR, Object + str(i)))
+            image_save = str(i)+".Rotation_Steps= "+ str(ROTATION_STEPS)
+            bpy.context.scene.render.filepath = os.path.abspath(os.path.join(OUTPUT_IMAGE_DIR, image_save))
             model.select_set(state=True)
             bpy.context.view_layer.objects.active = model
             bpy.ops.render.render(write_still=True)
             x, y, w, h = Boundingbox.camera_view_bounds_2d(bpy.context.scene, bpy.context.scene.camera, bpy.context.object)
             dir = os.path.split(bpy.data.filepath)[0]
-            f_path = os.path.join(OUTPUT_BOUNDINGBOX_DIR, Object+str(i)+".txt")
+            Text_obj = str(i)+".Rotation_Steps="+str(ROTATION_STEPS)+".txt"
+            f_path = os.path.join(OUTPUT_BOUNDINGBOX_DIR, Text_obj)
 
             with open(f_path, "w") as f:
                 f.write("%d, %d, %d, %d" % (x, y, w, h))

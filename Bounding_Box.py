@@ -8,7 +8,7 @@ import os
 for image in os.listdir(OUTPUT_MERGED_IMG):
 
 
-    im = np.array(Image.open('C:/Users/Groll/PycharmProjects/Blender Code/output/merged_img/'+ image), dtype=np.uint8)
+    im = np.array(Image.open("C:/Users/Groll/PycharmProjects/Bachelor-Thesis/output/merged_img/" + image), dtype=np.uint8)
 
     # Create figure and axes
     fig,ax = plt.subplots(1)
@@ -17,7 +17,7 @@ for image in os.listdir(OUTPUT_MERGED_IMG):
     ax.imshow(im)
 
     # Create a Rectangle patch
-    rect = patches.Rectangle((758, 423),415, 283,linewidth=1,edgecolor='r',facecolor='none')
+    rect = patches.Rectangle((885, 312),153, 402,linewidth=0.5,edgecolor='r',facecolor='none')
 
     # Add the patch to the Axes
     ax.add_patch(rect)
