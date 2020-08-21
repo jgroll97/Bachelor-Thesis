@@ -10,15 +10,7 @@ from PIL import Image
 from config import *
 import Boundingbox
 
-
-
-
-
 print(bpy.app.version_string)
-
-
-
-
 
 def _cleardir(dir):
     for root, dirs, files in os.walk(dir, topdown=False):
@@ -77,8 +69,6 @@ def setup_light():
     bpy.context.object.rotation_euler[0] = 3.14159
     bpy.context.object.data.size = SIZE
     bpy.context.object.data.energy = BRIGHTNESS
-
-
 
 
 
