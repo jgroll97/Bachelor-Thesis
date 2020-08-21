@@ -4,9 +4,13 @@ from random import randint
 import numpy as np
 import time
 import math
+import sys
+sys.path.insert(1,"./")
 from PIL import Image
 from config import *
 import Boundingbox
+
+
 
 
 
@@ -150,7 +154,7 @@ def generate_background_images_1():
             pixel = (r, g, b)
             my_pixels[x, y] = pixel
     image_path = INPUT_BACKGROUNDS_DIR
-    image_path_color = os.path.join(image_path, "NOISE_PATTERN.png" )
+    image_path_color = os.path.join(image_path, "NOISE_PATTERN_color.png" )
     my_image.save(image_path_color)
 
 def generate_background_images():
