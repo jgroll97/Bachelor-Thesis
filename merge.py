@@ -6,6 +6,7 @@ import multiprocessing
 from config import *
 
 
+
 def make_single_merged(args):
     background, image, file_path = args
     b, g, r, a = cv2.split(image)
@@ -33,7 +34,7 @@ def make_merged():
 
     for b, background in enumerate(backgrounds):
         pool.map(make_single_merged, [
-            (background, image, os.path.join(OUTPUT_MERGED_IMG, "Rotation_Steps=" + str(ROTATION_STEPS)+", " + str(b) + "_" + str(i) + ".png")) for i,
+            (background, image, os.path.join(OUTPUT_MERGED_IMG, "Rotation_Steps= " + str(ROTATION_STEPS) + ", " + str(b) + "_" + str(i) + ".png")) for i,
             image in enumerate(images)])
 
 

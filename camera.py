@@ -21,20 +21,21 @@ def _cleardir(dir):
 
 
 def setup_light():
+    #light1
     bpy.ops.object.light_add(type='AREA', align='WORLD', location=(3, 2, 6))
     bpy.ops.object.select_by_type(type='LIGHT')
     SIZE = 5
     bpy.context.object.data.size = SIZE
     BRIGHTNESS = 1000
     bpy.context.object.data.energy = BRIGHTNESS
-
+    #light2
     bpy.ops.object.light_add(type='AREA', align='WORLD', location=(2, -20, 18))
     bpy.ops.object.select_by_type(type='LIGHT')
     bpy.context.object.rotation_euler[0] = 1.5708
     bpy.context.object.data.size = SIZE
     bpy.context.object.data.energy = BRIGHTNESS
 
-    # Licht3
+    #light3
 
     bpy.ops.object.light_add(type='AREA', align='WORLD', location=(2, 25, 18))
     bpy.ops.object.select_by_type(type='LIGHT')
@@ -42,7 +43,7 @@ def setup_light():
     bpy.context.object.data.size = SIZE
     bpy.context.object.data.energy = BRIGHTNESS
 
-    # Licht4
+    #light4
 
     bpy.ops.object.light_add(type='AREA', align='WORLD', location=(-25, 4, 15))
     bpy.ops.object.select_by_type(type='LIGHT')
@@ -52,7 +53,7 @@ def setup_light():
     bpy.context.object.data.size = SIZE
     bpy.context.object.data.energy = BRIGHTNESS
 
-    # Licht5
+    #light5
 
     bpy.ops.object.light_add(type='AREA', align='WORLD', location=(25, 4, 14))
     bpy.ops.object.select_by_type(type='LIGHT')
@@ -62,7 +63,7 @@ def setup_light():
     bpy.context.object.data.size = SIZE
     bpy.context.object.data.energy = BRIGHTNESS
 
-    # Licht6
+    #light6
 
     bpy.ops.object.light_add(type='AREA', align='WORLD', location=(3, 2, -25))
     bpy.ops.object.select_by_type(type='LIGHT')
@@ -94,7 +95,7 @@ def align_object(obj):
         bpy.context.object.scale[0] = bpy.context.object.scale[2]
         bpy.context.object.scale[1] = bpy.context.object.scale[2]
 
-    # Mittelpunkt
+    # center location
     bpy.ops.object.origin_set(type='GEOMETRY_ORIGIN', center='MEDIAN')
 
     bpy.ops.object.transform_apply(location=False, rotation=False, scale=True)
@@ -209,7 +210,7 @@ for alpha in np.linspace(0, 2 * math.pi, ROTATION_STEPS):
 
             transformed_pos = transformation_mat @ initial_pos
             camera.location = transformed_pos
-            image_save = str(i)+".Rotation_Steps= "+ str(ROTATION_STEPS)
+            image_save = str(i)+".al= "+ str(alpha)+ " ,be= " + str(beta)+ " ,ga= "+ str(gamma)
             bpy.context.scene.render.filepath = os.path.abspath(os.path.join(OUTPUT_IMAGE_DIR, image_save))
             model.select_set(state=True)
             bpy.context.view_layer.objects.active = model
