@@ -1,11 +1,11 @@
+import sys
+sys.path.insert(1, "./")
 import os
 import bpy
 from random import randint
 import numpy as np
 import time
 import math
-import sys
-sys.path.insert(1,"./")
 from PIL import Image
 from config import *
 import Boundingbox
@@ -171,8 +171,6 @@ def generate_background_images():
 
 # Actual program
 
-initial_pos = np.array([4, 4, 4])  # initial loc of the camera
-
 start = time.time()
 if os.path.exists(OUTPUT_DIR):
     _cleardir(OUTPUT_DIR)
@@ -187,13 +185,15 @@ generate_background_images_1()
 clear_scene()
 model = load_objects()
 align_object(model)
-bpy.ops.object.shade_smooth()  # Rundere Übergänge
+bpy.ops.object.shade_smooth()
 setup_light()
 camera = add_camera()
 
 bpy.context.scene.camera = bpy.data.objects["Camera"]
 bpy.context.scene.render.engine = 'CYCLES'  # set render engine (will die with default)
 bpy.context.scene.render.film_transparent = True  # transparent background
+
+initial_pos = np.array([4, 4, 4])  # initial loc of the camera
 
 i = 0
 
