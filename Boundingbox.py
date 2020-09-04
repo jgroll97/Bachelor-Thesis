@@ -85,9 +85,7 @@ def camera_view_bounds_2d(scene, cam_ob, me_ob):
             if z == 0.0:
                 lx.append(0.5)
                 ly.append(0.5)
-            # Does it make any sense to drop these?
-            # if z <= 0.0:
-            #    continue
+
             else:
                 frame = [(v / (v.z / z)) for v in frame]
 

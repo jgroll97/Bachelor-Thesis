@@ -194,7 +194,7 @@ bpy.context.scene.camera = bpy.data.objects["Camera"]
 bpy.context.scene.render.engine = 'CYCLES'  # set render engine (will die with default)
 bpy.context.scene.render.film_transparent = True  # transparent background
 
-initial_pos = np.array([4, 4, 4])  # initial loc of the camera
+initial_pos = np.array([3, 3, 3])  # initial loc of the camera
 
 i = 0
 
