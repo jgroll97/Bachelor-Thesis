@@ -129,7 +129,7 @@ def add_camera():
 
 
 def generate_background_images_1():
-    width, height = (1920, 1080)
+    width, height = (512, 512)
     mode = 'RGB'
     my_image = Image.new(mode, (width, height))
 
@@ -149,7 +149,7 @@ def generate_background_images_1():
     my_image.save(image_path_color)
 
 def generate_background_images():
-    width, height = (1920, 1080)
+    width, height = (512, 512)
     mode = 'RGB'
     my_image2 = Image.new(mode, (width, height))
 
@@ -214,6 +214,10 @@ for alpha in np.linspace(0, 2 * math.pi, ROTATION_STEPS):
             bpy.context.scene.render.filepath = os.path.abspath(os.path.join(OUTPUT_IMAGE_DIR, image_save))
             model.select_set(state=True)
             bpy.context.view_layer.objects.active = model
+            bpy.context.scene.render.resolution_x = 512
+            bpy.context.scene.render.resolution_y = 512
+            bpy.context.scene.render.resolution_percentage = 100
+
             bpy.ops.render.render(write_still=True)
             x, y, w, h = Boundingbox.camera_view_bounds_2d(bpy.context.scene, bpy.context.scene.camera, bpy.context.object)
             dir = os.path.split(bpy.data.filepath)[0]
