@@ -37,7 +37,6 @@ def setup_light():
     bpy.context.object.data.energy = BRIGHTNESS
 
     #light3
-
     bpy.ops.object.light_add(type='AREA', align='WORLD', location=(2, 25, 18))
     bpy.ops.object.select_by_type(type='LIGHT')
     bpy.context.object.rotation_euler[0] = -1.5708
