@@ -217,7 +217,6 @@ for alpha in np.linspace(0, 2 * math.pi, ROTATION_STEPS):
             bpy.context.scene.render.resolution_x = 512
             bpy.context.scene.render.resolution_y = 512
             bpy.context.scene.render.resolution_percentage = 100
-
             bpy.ops.render.render(write_still=True)
             x, y, w, h = Boundingbox.camera_view_bounds_2d(bpy.context.scene, bpy.context.scene.camera, bpy.context.object)
             dir = os.path.split(bpy.data.filepath)[0]
