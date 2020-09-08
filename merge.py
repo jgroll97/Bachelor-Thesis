@@ -1,3 +1,5 @@
+import sys
+sys.path.insert(1, "./")
 import cv2
 import os
 import timeit
