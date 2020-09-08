@@ -10,6 +10,7 @@ from PIL import Image
 from config import *
 import Boundingbox
 
+
 print(bpy.app.version_string)
 
 def _cleardir(dir):
