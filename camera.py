@@ -220,7 +220,7 @@ for alpha in np.linspace(0, 2 * math.pi, ROTATION_STEPS):
             bpy.ops.render.render(write_still=True)
             x, y, w, h = Boundingbox.camera_view_bounds_2d(bpy.context.scene, bpy.context.scene.camera, bpy.context.object)
             dir = os.path.split(bpy.data.filepath)[0]
-            Text_obj = str(i)+".Rotation_Steps="+str(ROTATION_STEPS)+".txt"
+            Text_obj = str(i)+".al= "+ str(alpha)+ " ,be= " + str(beta)+ " ,ga= "+ str(gamma)+".txt"
             f_path = os.path.join(OUTPUT_BOUNDINGBOX_DIR, Text_obj)
 
             with open(f_path, "w") as f:
