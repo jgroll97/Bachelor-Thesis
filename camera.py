@@ -224,7 +224,8 @@ for alpha in np.linspace(0, 2 * math.pi, ROTATION_STEPS):
             f_path = os.path.join(OUTPUT_BOUNDINGBOX_DIR, Text_obj)
 
             with open(f_path, "w") as f:
-                f.write("%d, %d, %d, %d" % (x, y, w, h))
+                c = 1
+                f.write(" %d, %d, %d, %d, %d" % (c, x, y, w, h))
             i += 1
 
 
