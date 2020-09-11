@@ -239,8 +239,7 @@ for alpha in np.linspace(0, 2 * math.pi, ROTATION_STEPS):
                 Y2= y2/512
                 M = [str(c) + " " + str(X2) + " " + str(Y2) + " " + str(W) + " " + str(H)]
                 f.write((str(M)))
-            with open (m_path, "w") as w:
-                w.write(Lable)
+
             i += 1
 
 
