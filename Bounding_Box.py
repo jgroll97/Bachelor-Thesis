@@ -17,7 +17,7 @@ for image in os.listdir(OUTPUT_MERGED_IMG):
     ax.imshow(im)
 
     # Create a Rectangle patch
-    rect = patches.Rectangle((798, 257), 312, 470,linewidth=1.5,edgecolor='r',facecolor='none')
+    rect = patches.Rectangle((197, 208), 103, 70,linewidth=1.5,edgecolor='r',facecolor='none')
 
     # Add the patch to the Axes
     ax.add_patch(rect)

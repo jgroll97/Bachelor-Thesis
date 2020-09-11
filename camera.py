@@ -180,6 +180,7 @@ else:
 os.makedirs(OUTPUT_IMAGE_DIR)
 os.makedirs(OUTPUT_BOUNDINGBOX_DIR)
 os.makedirs(OUTPUT_MERGED_IMG)
+os.makedirs(OUTPUT_MAP_DIR)
 
 generate_background_images()
 generate_background_images_1()
@@ -222,10 +223,24 @@ for alpha in np.linspace(0, 2 * math.pi, ROTATION_STEPS):
             dir = os.path.split(bpy.data.filepath)[0]
             Text_obj = str(i)+".al= "+ str(alpha)+ " ,be= " + str(beta)+ " ,ga= "+ str(gamma)+".txt"
             f_path = os.path.join(OUTPUT_BOUNDINGBOX_DIR, Text_obj)
+            m_path = os.path.join(OUTPUT_MAP_DIR, Text_obj)
+            print (x,y,w,h)
 
             with open(f_path, "w") as f:
                 c = 1
-                f.write(" %d, %d, %d, %d, %d" % (c, x, y, w, h))
+
+                X = x/512
+                Y = y/512
+                W = w/512
+                H = h/512
+                x2= x+ (w/2)
+                y2= y+ (h/2)
+                X2= x2/512
+                Y2= y2/512
+                M = [str(c) + " " + str(X2) + " " + str(Y2) + " " + str(W) + " " + str(H)]
+                f.write((str(M)))
+            with open (m_path, "w") as w:
+                w.write(Lable)
             i += 1
 
 
