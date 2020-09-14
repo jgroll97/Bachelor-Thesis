@@ -145,7 +145,7 @@ def generate_background_images_1():
             pixel = (r, g, b)
             my_pixels[x, y] = pixel
     image_path = INPUT_BACKGROUNDS_DIR
-    image_path_color = os.path.join(image_path, "NOISE_PATTERN_color.png" )
+    image_path_color = os.path.join(image_path, "co.jpg" )
     my_image.save(image_path_color)
 
 def generate_background_images():
@@ -165,7 +165,7 @@ def generate_background_images():
             pixel = (r, g, b)
             my_pixels[x, y] = pixel
     image_path = INPUT_BACKGROUNDS_DIR
-    image_path_bw = os.path.join(image_path, "NOISE_PATTERN_bw.png")
+    image_path_bw = os.path.join(image_path, "bw.jpg")
     my_image2.save(image_path_bw)
 
 
@@ -180,7 +180,7 @@ else:
 os.makedirs(OUTPUT_IMAGE_DIR)
 os.makedirs(OUTPUT_BOUNDINGBOX_DIR)
 os.makedirs(OUTPUT_MERGED_IMG)
-os.makedirs(OUTPUT_MAP_DIR)
+
 
 generate_background_images()
 generate_background_images_1()
@@ -223,8 +223,8 @@ for alpha in np.linspace(0, 2 * math.pi, ROTATION_STEPS):
             dir = os.path.split(bpy.data.filepath)[0]
             Text_obj = str(i)+".al= "+ str(alpha)+ " ,be= " + str(beta)+ " ,ga= "+ str(gamma)+".txt"
             f_path = os.path.join(OUTPUT_BOUNDINGBOX_DIR, Text_obj)
-            m_path = os.path.join(OUTPUT_MAP_DIR, Text_obj)
-            print (x,y,w,h)
+
+
 
             with open(f_path, "w") as f:
                 c = 1

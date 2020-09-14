@@ -3,7 +3,6 @@ INPUT_BACKGROUNDS_DIR = "./input/backgrounds"
 OUTPUT_DIR = "./output"
 OUTPUT_IMAGE_DIR = OUTPUT_DIR + "/images"
 OUTPUT_BOUNDINGBOX_DIR = OUTPUT_DIR + "/boundingbox"
-OUTPUT_MAP_DIR = OUTPUT_DIR + "/map_lable"
 OUTPUT_MERGED_IMG = OUTPUT_DIR + "/merged_img"
 ROTATION_STEPS = 20
 
