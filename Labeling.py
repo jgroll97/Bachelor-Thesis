@@ -17,7 +17,7 @@ for m in os.listdir(path):
         path_bb = os.path.join(OUTPUT_BOUNDINGBOX_DIR, bb)
 
         single_m = m.split(".")
-        print(single_m[0])
+        #print(single_m[0])
         m_background = m.split(" ")
         #print(m_background[3])
         single_bb= bb.split(".")
