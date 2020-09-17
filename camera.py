@@ -128,45 +128,7 @@ def add_camera():
     return camera
 
 
-def generate_background_images_1():
-    width, height = (512, 512)
-    mode = 'RGB'
-    my_image = Image.new(mode, (width, height))
 
-    # Load all the pixels.
-    my_pixels = my_image.load()
-
-    # Loop through all the pixels, and set each color randomly.
-    for x in range(width):
-        for y in range(height):
-            r = randint(0, 255)
-            g = randint(0, 255)
-            b = randint(0, 255)
-            pixel = (r, g, b)
-            my_pixels[x, y] = pixel
-    image_path = INPUT_BACKGROUNDS_DIR
-    image_path_color = os.path.join(image_path, "co.jpg" )
-    my_image.save(image_path_color)
-
-def generate_background_images():
-    width, height = (512, 512)
-    mode = 'RGB'
-    my_image2 = Image.new(mode, (width, height))
-
-    # Load all the pixels.
-    my_pixels = my_image2.load()
-
-    # Loop through all the pixels, and set each color randomly.
-    for x in range(width):
-        for y in range(height):
-            r = randint(0, 255)
-            g = r
-            b = r
-            pixel = (r, g, b)
-            my_pixels[x, y] = pixel
-    image_path = INPUT_BACKGROUNDS_DIR
-    image_path_bw = os.path.join(image_path, "bw.jpg")
-    my_image2.save(image_path_bw)
 
 
 
@@ -182,8 +144,7 @@ os.makedirs(OUTPUT_BOUNDINGBOX_DIR)
 os.makedirs(OUTPUT_MERGED_IMG)
 
 
-generate_background_images()
-generate_background_images_1()
+
 clear_scene()
 model = load_objects()
 align_object(model)
