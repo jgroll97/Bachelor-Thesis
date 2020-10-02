@@ -8,7 +8,7 @@ import multiprocessing
 import shutil
 from config import *
 
-
+os.makedirs(OUTPUT_BOUNDINGBOX_MERGE_DIR)
 path = "./output/merged_img"
 path2 = "./output/boundingbox"
 for m in os.listdir(path):
@@ -28,11 +28,11 @@ for m in os.listdir(path):
 
         if single_m[0] == single_bb[0]:
             src = path_bb
-            dst = OUTPUT_MERGED_IMG
+            dst = OUTPUT_BOUNDINGBOX_MERGE_DIR
             shutil.copy(src, dst)
 
             dst_file = os.path.join(dst, bb)
-            new_name = m + ".txt"
+            new_name = m[:-4] + ".txt"
             new_dst_file_name = os.path.join(dst, new_name)
             os.rename(dst_file, new_dst_file_name)
 
