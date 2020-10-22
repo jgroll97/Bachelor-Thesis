@@ -7,8 +7,8 @@ import numpy as np
 import multiprocessing
 import shutil
 from config import *
-folder = "./output/bb_merge"
-object_name = "Lego2"
+folder = "./output/boundingbox"
+object_name = "bike_3"
 data= ".txt"
 
 

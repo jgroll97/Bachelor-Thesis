@@ -25,9 +25,9 @@ def setup_light():
     #light1
     bpy.ops.object.light_add(type='AREA', align='WORLD', location=(3, 2, 6))
     bpy.ops.object.select_by_type(type='LIGHT')
-    SIZE = 5
+    SIZE = 3
     bpy.context.object.data.size = SIZE
-    BRIGHTNESS = 1000
+    BRIGHTNESS = 100
     bpy.context.object.data.energy = BRIGHTNESS
     #light2
     bpy.ops.object.light_add(type='AREA', align='WORLD', location=(2, -20, 18))
@@ -188,7 +188,7 @@ for alpha in np.linspace(0, 2 * math.pi, ROTATION_STEPS):
 
 
             with open(f_path, "w") as f:
-                c = 6
+                c = 16
 
                 X = x/512
                 Y = y/512
